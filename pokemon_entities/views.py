@@ -1,8 +1,14 @@
+import datetime
+
+import django
 import folium
 import json
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
+from django.utils import timezone
+from django.utils.timezone import localtime
+
 from .models import *
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -33,12 +39,13 @@ def show_all_pokemons(request):
 
     for pokemon_entity in pokemon_entities:
         pokemon = Pokemon.objects.get(title=pokemon_entity.title)
-        add_pokemon(
-            folium_map,
-            pokemon_entity.lat,
-            pokemon_entity.lon,
-            f'media/{pokemon.image}',
-        )
+        if (pokemon_entity.appeared_at < localtime() and pokemon_entity.disappeared_at > localtime()):
+            add_pokemon(
+                folium_map,
+                pokemon_entity.lat,
+                pokemon_entity.lon,
+                f'media/{pokemon.image}',
+            )
 
     pokemons_on_page = []
     for pokemon in pokemons:
