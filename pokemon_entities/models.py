@@ -1,9 +1,9 @@
 from django.db import models  # noqa F401
 
 class Pokemon(models.Model):
-    title = models.CharField(verbose_name='Имя покемона', max_length=200, blank=True)
-    image = models.ImageField(verbose_name='Картинка покемона', null=True, blank=True)
-    description = models.TextField(verbose_name='Описание', null=True, blank=True)
+    title = models.CharField(verbose_name='Имя покемона', max_length=200)
+    image = models.ImageField(verbose_name='Картинка покемона', null=True)
+    description = models.TextField(verbose_name='Описание')
     title_en = models.CharField(verbose_name='Имя покемона по-английски', max_length=200, blank=True)
     title_jp = models.CharField(verbose_name='Имя покемона по-японски', max_length=200, blank=True)
     previous_evolution = models.ForeignKey('self', related_name='name', verbose_name='Из кого эволюционировал', on_delete=models.CASCADE, null=True, blank=True)
@@ -12,7 +12,7 @@ class Pokemon(models.Model):
         return self.title
 
 class PokemonEntity(models.Model):
-    title = models.ForeignKey(Pokemon, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Имя покемона')
+    title = models.ForeignKey(Pokemon, on_delete=models.CASCADE, verbose_name='Имя покемона')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
     appeared_at = models.DateTimeField(verbose_name='Время появления покемона', null=True, blank=True)
