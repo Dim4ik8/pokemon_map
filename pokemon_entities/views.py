@@ -37,7 +37,7 @@ def show_all_pokemons(request):
                 folium_map,
                 pokemon_entity.lat,
                 pokemon_entity.lon,
-                f'media/{pokemon.image}',
+                request.build_absolute_uri(pokemon.image.url),
             )
 
     pokemons_on_page = []
@@ -45,7 +45,7 @@ def show_all_pokemons(request):
     for pokemon in pokemons:
         pokemons_on_page.append({
             'pokemon_id': pokemon.id,
-            'img_url': f'../media/{pokemon.image}',
+            'img_url': request.build_absolute_uri(pokemon.image.url),
             'title_ru': pokemon.title,
         })
 
@@ -63,7 +63,7 @@ def show_pokemon(request, pokemon_id):
         next_evolution = {
             'pokemon_id': next_pokemon.id,
             'title_ru': next_pokemon.title,
-            'img_url': f'../../media/{next_pokemon.image}',
+            'img_url': request.build_absolute_uri(next_pokemon.image.url),
         }
     except:
         next_evolution = {}
@@ -74,14 +74,14 @@ def show_pokemon(request, pokemon_id):
         previous_evolution = {
             'pokemon_id': requested_pokemon.previous_evolution.id,
             'title_ru': requested_pokemon.previous_evolution.title,
-            'img_url': f'../../media/{requested_pokemon.previous_evolution.image}',
+            'img_url': request.build_absolute_uri(requested_pokemon.previous_evolution.image.url),
         }
 
 
 
     pokemon = {
         'title_ru': requested_pokemon.title,
-        'img_url': f'../../media/{requested_pokemon.image}',
+        'img_url': request.build_absolute_uri(requested_pokemon.image.url),
         'description': requested_pokemon.description,
         'title_en': requested_pokemon.title_en,
         'title_jp': requested_pokemon.title_jp,
@@ -97,7 +97,7 @@ def show_pokemon(request, pokemon_id):
                 folium_map,
                 pokemon_entity.lat,
                 pokemon_entity.lon,
-                f'media/{requested_pokemon.image}',
+                request.build_absolute_uri(requested_pokemon.image.url),
             )
 
     return render(request, 'pokemon.html', context={
