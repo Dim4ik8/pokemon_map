@@ -3,7 +3,7 @@ import folium
 from django.shortcuts import render
 from django.utils.timezone import localtime
 
-from .models import *
+from .models import Pokemon, PokemonEntity
 
 MOSCOW_CENTER = [55.751244, 37.618423]
 DEFAULT_IMAGE_URL = (
