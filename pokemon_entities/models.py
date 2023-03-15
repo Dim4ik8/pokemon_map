@@ -12,7 +12,7 @@ class Pokemon(models.Model):
         return self.title
 
 class PokemonEntity(models.Model):
-    title = models.ForeignKey(Pokemon, on_delete=models.PROTECT, verbose_name='Имя покемона')
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.PROTECT, verbose_name='Имя покемона')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
     appeared_at = models.DateTimeField(verbose_name='Время появления покемона', null=True, blank=True)
