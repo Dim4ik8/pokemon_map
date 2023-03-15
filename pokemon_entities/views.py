@@ -57,7 +57,7 @@ def show_pokemon(request, pokemon_id):
     requested_pokemon = Pokemon.objects.get(id=pokemon_id)
 
     try:
-        next_pokemon = requested_pokemon.name.get(previous_evolution_id=pokemon_id)
+        next_pokemon = requested_pokemon.evolution.get(previous_evolution_id=pokemon_id)
         next_evolution = {
             'pokemon_id': next_pokemon.id,
             'title_ru': next_pokemon.title,
@@ -65,6 +65,7 @@ def show_pokemon(request, pokemon_id):
         }
     except:
         next_evolution = {}
+
 
     previous_evolution = {}
 
