@@ -12,7 +12,7 @@ class Pokemon(models.Model):
         return self.title
 
 class PokemonEntity(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.PROTECT, verbose_name='Имя покемона')
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.PROTECT, verbose_name='Имя покемона', related_name='entities')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
     appeared_at = models.DateTimeField(verbose_name='Время появления покемона', null=True, blank=True)
@@ -24,4 +24,4 @@ class PokemonEntity(models.Model):
     stamina = models.IntegerField(verbose_name='Выносливость', null=True, blank=True)
 
     def __str__(self):
-        return f"{self.title}, появился(появится) {self.appeared_at.strftime('%d-%m-%Y %H:%M')}, исчез(исчезнет) {self.disappeared_at.strftime('%d-%m-%Y %H:%M')}"
+        return f"{self.pokemon}, появился(появится) {self.appeared_at.strftime('%d-%m-%Y %H:%M')}, исчез(исчезнет) {self.disappeared_at.strftime('%d-%m-%Y %H:%M')}"
