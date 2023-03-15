@@ -31,13 +31,12 @@ def show_all_pokemons(request):
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
 
     for pokemon_entity in pokemon_entities:
-        pokemon = Pokemon.objects.get(title=pokemon_entity.title)
         if (pokemon_entity.appeared_at < localtime() and pokemon_entity.disappeared_at > localtime()):
             add_pokemon(
                 folium_map,
                 pokemon_entity.lat,
                 pokemon_entity.lon,
-                request.build_absolute_uri(pokemon.image.url),
+                request.build_absolute_uri(pokemon_entity.title.image.url),
             )
 
     pokemons_on_page = []
