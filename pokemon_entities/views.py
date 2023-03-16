@@ -60,7 +60,7 @@ def show_pokemon(request, pokemon_id):
     requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
 
     try:
-        next_pokemon = requested_pokemon.evolution.get(
+        next_pokemon = requested_pokemon.next_evolutions.get(
             previous_evolution_id=pokemon_id
         )
         next_evolution = {
