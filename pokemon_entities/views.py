@@ -60,17 +60,16 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
 
-    try:
-        next_pokemon = requested_pokemon.next_evolutions.get(
-            previous_evolution_id=pokemon_id
-        )
+    next_evolution = {}
+    next_evolution_pokemons = requested_pokemon.next_evolutions.first()
+    if next_evolution_pokemons:
         next_evolution = {
-            'pokemon_id': next_pokemon.id,
-            'title_ru': next_pokemon.title,
-            'img_url': request.build_absolute_uri(next_pokemon.image.url),
-        }
-    except Pokemon.DoesNotExist:
-        next_evolution = {}
+                    'pokemon_id': next_evolution_pokemons.id,
+                    'title_ru': next_evolution_pokemons.title,
+                    'img_url': request.build_absolute_uri(
+                        next_evolution_pokemons.image.url
+                    ),
+                }
 
     previous_evolution = {}
     if requested_pokemon.previous_evolution:
